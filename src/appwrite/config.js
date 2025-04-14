@@ -24,11 +24,11 @@ export class Service{
                 featuredImage,
                 status,
                 userId,
-            } ,
-            // console.log("createpost method ran, No error here")
+            }
         )
         } catch (error) {
             console.log("Appwrite service :: createPost :: error", error);
+            throw error;
         }
     }
 
@@ -47,6 +47,7 @@ export class Service{
             )
         } catch (error) {
             console.log("Appwrite service :: updatePost :: error", error);
+            throw error;
         }
     }
 
@@ -83,7 +84,6 @@ export class Service{
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 queries,
-
             )
         } catch (error) {
             console.log("Appwrite service :: getPosts :: error", error);
@@ -92,9 +92,12 @@ export class Service{
     }
 
     // file upload service
-
     async uploadFile(file){
         try {
+            if (!file) {
+                console.log("No file provided for upload");
+                return false;
+            }
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
                 ID.unique(),
@@ -108,6 +111,10 @@ export class Service{
 
     async deleteFile(fileId){
         try {
+            if (!fileId) {
+                console.log("No fileId provided for deletion");
+                return false;
+            }
             await this.bucket.deleteFile(
                 conf.appwriteBucketId,
                 fileId
@@ -120,15 +127,21 @@ export class Service{
     }
 
     getFilePreview(fileId){
-        return this.bucket.getFilePreview(
-            conf.appwriteBucketId,
-            fileId
-        )
+        try {
+            if (!fileId) {
+                console.log("No fileId provided for preview");
+                return null;
+            }
+            return this.bucket.getFileView(
+                conf.appwriteBucketId,
+                fileId
+            )
+        } catch (error) {
+            console.log("Appwrite service :: getFilePreview :: error", error);
+            return null;
+        }
     }
-
 }
-
-
 
 const service = new Service()
 export default service
