@@ -60,6 +60,8 @@ function Home() {
                         </h1>
                         <p className='text-lg text-gray-600'>
                             Please login to view and interact with posts
+                            Demo account: abc@gmail.com
+                            Demo password: 12345678
                         </p>
                         <Link to="/login">
                             <motion.button
