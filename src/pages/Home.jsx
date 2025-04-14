@@ -60,9 +60,12 @@ function Home() {
                         </h1>
                         <p className='text-lg text-gray-600'>
                             Please login to view and interact with posts
-                            Demo account: abc@gmail.com
-                            Demo password: 12345678
                         </p>
+                        <div className='text-lg text-gray-600'>
+                            <p className='font-semibold'>Demo Account:</p>
+                            <p>Email: abc@gmail.com</p>
+                            <p>Password: 12345678</p>
+                        </div>
                         <Link to="/login">
                             <motion.button
                                 className='px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300'
