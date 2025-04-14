@@ -1,8 +1,8 @@
-# MegaBlog - Modern Blogging Platform
+# BlogSpot - Modern Blogging Platform
 
 A full-featured blogging platform built with React and Appwrite, featuring a modern UI, smooth animations, and robust functionality.
 
-![MegaBlog Screenshot](src/assets/blog-svgrepo-com.svg)
+<img src="src/assets/blog-svgrepo-com.svg" alt="BlogSpot Logo" width="200" height="200" />
 
 ## 🚀 Features
 
@@ -119,17 +119,3 @@ npm run dev
 2. Create your first post
 3. Add images and format content
 4. Publish and share
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- Appwrite for the backend services
-- React and Vite teams
-- All contributors and supporters
