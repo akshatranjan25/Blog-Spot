@@ -36,13 +36,33 @@ export class AuthService {
 
     async getCurrentUser() {
         try {
-            return await this.account.get();
+            const user = await this.account.get();
+            if (!user) {
+                // Try to get the current session
+                const session = await this.account.getSession('current');
+                if (!session) {
+                    console.log("No active session found");
+                    return null;
+                }
+                // If we have a session but no user, try to get the user again
+                return await this.account.get();
+            }
+            return user;
         } catch (error) {
-            // throw error;
             console.log("Appwrite service :: getCurrentUser :: error", error);
+            // If it's a session error, try to refresh the session
+            if (error.type === 'user_session_required') {
+                try {
+                    const session = await this.account.getSession('current');
+                    if (session) {
+                        return await this.account.get();
+                    }
+                } catch (refreshError) {
+                    console.log("Failed to refresh session:", refreshError);
+                }
+            }
+            return null;
         }
-
-        return null;
     }
 
     async logout() {

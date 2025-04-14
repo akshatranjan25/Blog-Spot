@@ -14,16 +14,23 @@ function App() {
   const location = useLocation()
 
   useEffect(() => {
-    authService.getCurrentUser()
-      .then((userData) => {
+    const checkAuth = async () => {
+      try {
+        const userData = await authService.getCurrentUser();
         if (userData) {
-          dispatch(login({ userData }))
+          dispatch(login({ userData }));
         } else {
-          dispatch(logout())
+          dispatch(logout());
         }
-      })
-      .finally(() => setLoading(false))
-  }, [])
+      } catch (error) {
+        console.error("Error checking auth state:", error);
+        dispatch(logout());
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkAuth();
+  }, [dispatch]);
 
   if (loading) {
     return (
